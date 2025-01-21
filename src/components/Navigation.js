@@ -6,13 +6,12 @@ const Navigation = () => {
   }
   return (
     <nav>
-      {!isAuthenticated()}
       {isAuthenticated() && (
-        <div>
-          <Link to="/products">Products </Link>
-          <Link to="/policies">Policies </Link>
-          <Link to="/licenses">Licenses </Link>
-        </div>
+        <ul className="nav-links">
+          <li><Link to="/products">Products</Link></li>
+          <li><Link to="/policies">Policies</Link></li>
+          <li><Link to="/licenses">Licenses</Link></li>
+        </ul>
       )}
     </nav>
   );

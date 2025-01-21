@@ -1,11 +1,9 @@
-import Navigation from "./Navigation";
 import Logout from "./Logout";
 
 const Header = () => {
   return (
     <header>
-      <h1>Keygen UI</h1>
-      <Navigation />
+      <h1>Keygen Admin</h1>
       <Logout />
     </header>
   );
