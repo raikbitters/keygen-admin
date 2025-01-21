@@ -1,6 +1,5 @@
 const config = {
-  baseUrl: 'https://api.keygen.sh/v1',
-  account: '',
+  baseUrl: process.env.KEYGEN_API_URL || 'https://api.keygen.sh/v1',
   endpoints: {
     tokens: (account) => `/accounts/${account}/tokens`,
     products: (account) => `/accounts/${account}/products`,

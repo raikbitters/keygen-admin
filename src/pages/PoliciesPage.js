@@ -6,7 +6,8 @@ const Policies = () => {
   const [policies, setPolicies] = useState([]);
   const handleLogout = useLogout();
   const baseUrl = config.baseUrl;
-  const endpoint = config.endpoints.policies(config.account);
+  const accountId = localStorage.getItem('accountId');
+  const endpoint = config.endpoints.policies(accountId);
 
   useEffect(() => {
     const fetchPolicies = async () => {

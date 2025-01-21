@@ -6,7 +6,8 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const handleLogout = useLogout();
   const baseUrl = config.baseUrl;
-  const endpoint = config.endpoints.products(config.account);
+  const accountId = localStorage.getItem('accountId');
+  const endpoint = config.endpoints.products(accountId);
 
   useEffect(() => {
     const fetchProducts = async () => {

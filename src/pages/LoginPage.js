@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import config  from '../config';
+import config from '../config';
 
 const Login = () => {
   if (localStorage.getItem('token')) {
     window.location.href = '/products';
   }
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [accountId, setAccountId] = useState(localStorage.getItem('accountId') || '');
   const [error, setError] = useState('');
 
   const baseUrl = config.baseUrl;
-  const endpoint = config.endpoints.tokens(config.account);
+  const endpoint = config.endpoints.tokens(accountId);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ const Login = () => {
       });
       const payload = await request.json();
       localStorage.setItem('token', payload.data.attributes.token);
+      localStorage.setItem('accountId', accountId);
       setError('');
       window.location.href = '/products';
     } catch (err) {
@@ -38,12 +40,31 @@ const Login = () => {
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div>
+          <label>Account ID:</label>
+          <input 
+            type="text"
+            value={accountId}
+            onChange={(e) => setAccountId(e.target.value)}
+            required
+          />
+        </div>
+        <div>
           <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input 
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
         <button type="submit">Login</button>
       </form>

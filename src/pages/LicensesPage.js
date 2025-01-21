@@ -6,7 +6,8 @@ const Licenses = () => {
   const [licenses, setLicenses] = useState([]);
   const handleLogout = useLogout();
   const baseUrl = config.baseUrl;
-  const endpoint = config.endpoints.licenses(config.account);
+  const accountId = localStorage.getItem('accountId');
+  const endpoint = config.endpoints.licenses(accountId);
 
   useEffect(() => {
     const fetchLicenses = async () => {
