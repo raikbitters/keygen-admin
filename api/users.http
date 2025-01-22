@@ -1,11 +1,7 @@
-### Get token
-# @name login
-POST {{host}}/accounts/{{account_id}}/tokens
+### Get current user
+GET {{host}}/accounts/{{account_id}}/me
 Accept: application/vnd.api+json
-Authorization: Basic {{email}}:{{password}}
-
-### Set token
-@token = {{login.response.body.data.attributes.token}}
+Authorization: Bearer {{token}}
 
 ### Get users
 GET {{host}}/accounts/{{account_id}}/users

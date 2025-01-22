@@ -1,12 +1,3 @@
-### Get token
-# @name login
-POST {{host}}/accounts/{{account_id}}/tokens
-Accept: application/vnd.api+json
-Authorization: Basic {{email}}:{{password}}
-
-### Set token
-@token = {{login.response.body.data.attributes.token}}
-
 ### Get licenses
 GET {{host}}/accounts/{{account_id}}/licenses
 Accept: application/vnd.api+json

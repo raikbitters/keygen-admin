@@ -1,0 +1,4 @@
+### Get account
+GET {{host}}/accounts/{{account_id}}
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
