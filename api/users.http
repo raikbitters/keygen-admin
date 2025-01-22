@@ -1,0 +1,36 @@
+### Get token
+# @name login
+POST {{host}}/accounts/{{account_id}}/tokens
+Accept: application/vnd.api+json
+Authorization: Basic {{email}}:{{password}}
+
+### Set token
+@token = {{login.response.body.data.attributes.token}}
+
+### Get users
+GET {{host}}/accounts/{{account_id}}/users
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+### Create a user
+# @prompt first_name The first name of the user. Optional.
+# @prompt last_name The last name of the user. Optional.
+# @prompt email The email of the user.
+# @prompt password The password for the user. Must be at least 8 characters.
+
+POST {{host}}/accounts/{{account_id}}/users
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+{
+  "data": {
+    "type": "users",
+    "attributes": {
+      "role": "user",
+      "firstName": "{{first_name}}",
+      "lastName": "{{last_name}}",
+      "email": "{{email}}",
+      "password": "{{password}}"
+    }
+  }
+}

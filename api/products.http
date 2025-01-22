@@ -1,0 +1,32 @@
+# @name login
+POST {{host}}/accounts/{{account_id}}/tokens
+Accept: application/vnd.api+json
+Authorization: Basic {{email}}:{{password}}
+
+###
+@token = {{login.response.body.data.attributes.token}}
+
+### Get products
+
+GET {{host}}/accounts/{{account_id}}/products
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+### Create a product
+# @prompt product_name The name of the product.
+# @prompt product_code The unique code, or 'slug', for the product.
+# @prompt product_url The URL of the product.
+POST {{host}}/accounts/{{account_id}}/products
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+{
+  "data": {
+    "type": "products",
+    "attributes": {
+      "name": "{{product_name}}",
+      "code": "{{product_code}}",
+      "url": "{{product_url}}"
+    }
+  }
+}

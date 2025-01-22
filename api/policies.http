@@ -1,0 +1,38 @@
+# @name login
+POST {{host}}/accounts/{{account_id}}/tokens
+Accept: application/vnd.api+json
+Authorization: Basic {{email}}:{{password}}
+
+###
+@token = {{login.response.body.data.attributes.token}}
+
+### Get policies
+GET {{host}}/accounts/{{account_id}}/policies
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+### Create a policy
+# @prompt product_id The ID of the product.
+# @prompt policy_name The name of the policy.
+# @prompt floating true or false.
+POST {{host}}/accounts/{{account_id}}/policies
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+{
+  "data": {
+    "type": "policies",
+    "attributes": {
+      "name": "{{policy_name}}",
+      "floating": {{floating}}
+    },
+    "relationships": {
+      "product": {
+        "data": {
+          "type": "product",
+          "id": "{{product_id}}"
+        }
+      }
+    }
+  }
+}

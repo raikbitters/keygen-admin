@@ -1,0 +1,59 @@
+### Get token
+# @name login
+POST {{host}}/accounts/{{account_id}}/tokens
+Accept: application/vnd.api+json
+Authorization: Basic {{email}}:{{password}}
+
+### Set token
+@token = {{login.response.body.data.attributes.token}}
+
+### Get licenses
+GET {{host}}/accounts/{{account_id}}/licenses
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+### Check-out a license
+# @prompt license_id The ID of the license.
+# @prompt ttl The time-to-live for the license in seconds.
+
+POST {{host}}/accounts/{{account_id}}/licenses/{{license_id}}/actions/check-out
+  ?ttl={{ttl}}
+  &encrypt=true
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+### Create a license
+# @prompt policy_id The ID of the policy.
+# @prompt owner_id The ID of the user who owns the license.
+# @prompt license_name The name of the license.
+# @prompt owner_email The email of the owner.
+
+POST {{host}}/accounts/{{account_id}}/licenses
+Accept: application/vnd.api+json
+Authorization: Bearer {{token}}
+
+{
+  "data": {
+    "type": "licenses",
+    "attributes": {
+      "name": "{{license_name}}",
+      "metadata": {
+        "ownerEmail":"{{owner_email}}"
+      }
+    },
+    "relationships": {
+      "policy": {
+        "data": {
+          "type": "policies",
+          "id": "{{policy_id}}"
+        }
+      },
+      "owner": {
+        "data": {
+          "type": "users",
+          "id": "{{owner_id}}"
+        }
+      }
+    }
+  }
+}
